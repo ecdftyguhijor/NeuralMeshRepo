@@ -1,12 +1,10 @@
-function combinationSum4(nums, target) {
-  const dp = new Array(target + 1).fill(0);
-  dp[0] = 1;
-  for (let i = 1; i <= target; i++) {
-    for (const num of nums) {
-      if (i >= num) {
-        dp[i] += dp[i - num];
-      }
-    }
+function findMin(nums) {
+  let left = 0;
+  let right = nums.length - 1;
+  while (left < right) {
+    const mid = Math.floor((left + right) / 2);
+    if (nums[mid] > nums[right]) left = mid + 1;
+    else right = mid;
   }
-  return dp[target];
+  return nums[left];
 }
