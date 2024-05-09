@@ -1,28 +1,17 @@
-function numIslands(grid) {
-  if (grid.length === 0) return 0;
-  let count = 0;
-  for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[0].length; j++) {
-      if (grid[i][j] === "1") {
-        dfs(grid, i, j);
-        count++;
-      }
+function sortColors(nums) {
+  let left = 0;
+  let right = nums.length - 1;
+  let i = 0;
+  while (i <= right) {
+    if (nums[i] === 0) {
+      [nums[i], nums[left]] = [nums[left], nums[i]];
+      left++;
+      i++;
+    } else if (nums[i] === 2) {
+      [nums[i], nums[right]] = [nums[right], nums[i]];
+      right--;
+    } else {
+      i++;
     }
   }
-  return count;
-}
-function dfs(grid, i, j) {
-  if (
-    i < 0 ||
-    i >= grid.length ||
-    j < 0 ||
-    j >= grid[0].length ||
-    grid[i][j] === "0"
-  )
-    return;
-  grid[i][j] = "0";
-  dfs(grid, i + 1, j);
-  dfs(grid, i - 1, j);
-  dfs(grid, i, j + 1);
-  dfs(grid, i, j - 1);
 }
