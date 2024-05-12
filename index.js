@@ -1,16 +1,19 @@
-const radixSort = (arr) => {
-  const getDigit = (num, place) =>
-    Math.floor(Math.abs(num) / Math.pow(10, place)) % 10;
-  const digitCount = (num) =>
-    num === 0 ? 1 : Math.floor(Math.log10(Math.abs(num))) + 1;
-  const mostDigits = (arr) => Math.max(...arr.map((num) => digitCount(num)));
-  const maxDigits = mostDigits(arr);
-  for (let k = 0; k < maxDigits; k++) {
-    let digitBuckets = Array.from({ length: 10 }, () => []);
-    for (let i = 0; i < arr.length; i++) {
-      digitBuckets[getDigit(arr[i], k)].push(arr[i]);
+function deserialize(data) {
+  if (!data.length) return null;
+  const root = new TreeNode(data.shift());
+  const queue = [root];
+  while (queue.length) {
+    const node = queue.shift();
+    const leftVal = data.shift();
+    if (leftVal !== undefined) {
+      node.left = new TreeNode(leftVal);
+      queue.push(node.left);
     }
-    arr = [].concat(...digitBuckets);
+    const rightVal = data.shift();
+    if (rightVal !== undefined) {
+      node.right = new TreeNode(rightVal);
+      queue.push(node.right);
+    }
   }
-  return arr;
-};
+  return root;
+}
